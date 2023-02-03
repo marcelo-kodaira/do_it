@@ -6,6 +6,7 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import * as yup from 'yup'
 import {yupResolver} from "@hookform/resolvers/yup"
 import { useState } from "react"
+import { useAuth } from "../../contexts/AuthContext"
 
 const signInSchema = yup.object().shape({
     email: yup.string().required('Email obrigatório').email('Email inválido'),
@@ -20,6 +21,7 @@ interface SignInData {
 const Login = () =>{
 
     const [loading, setLoading] = useState(false)
+    const {signIn,token,user} = useAuth()
 
     const {
         register,
@@ -29,7 +31,15 @@ const Login = () =>{
         resolver: yupResolver(signInSchema)
     })
 
-    const handleSignIn: SubmitHandler<SignInData> = data => console.log(data)
+    const handleSignIn: SubmitHandler<SignInData> = (data:SignInData) => {
+        setLoading(true)
+        signIn(data)
+        .then(() => setLoading(false) )
+        .catch(err => {
+            setLoading(false)
+            console.log(err)
+        })
+    }
 
     return(
         <Flex  
