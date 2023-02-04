@@ -46,19 +46,19 @@ export const InputBase: ForwardRefRenderFunction<HTMLInputElement , InputProps> 
 
     return(
         <FormControl isInvalid={!!error}>
-            {!!label && <FormLabel>{label}</FormLabel>}
+            {!!label && <FormLabel color="gray.400">{label}</FormLabel>}
 
             <InputGroup flexDir="column">
                 {Icon && (
-                <InputLeftElement color={InputVariation[variation]} mt="2.5">
+                <InputLeftElement color={InputVariation[variation]} >
                     <Icon/>
                 </InputLeftElement>
                 )}
                 <ChakraInput
                 id={name}
                 name={name}
-                size='lg' 
-                h='60px' 
+                size='md' 
+                h='45px' 
                 bg="gray.50" 
                 color={InputVariation[variation]} 
                 borderColor={InputVariation[variation]}  
@@ -67,7 +67,8 @@ export const InputBase: ForwardRefRenderFunction<HTMLInputElement , InputProps> 
                 onChangeCapture={e => setValue(e.currentTarget.value)} 
                 variant="outline" 
                 _hover={{ bgColor: 'gray.100'}} 
-                _placeholder={{color: 'gray.300'}} 
+                _placeholder={{color: 'gray.300'}}
+                 
                 ref={ref} 
                 {...rest}
                 />

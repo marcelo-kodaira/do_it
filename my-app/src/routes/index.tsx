@@ -1,12 +1,17 @@
-import { Route, Routes } from "react-router-dom";
+import {  Switch } from "react-router-dom";
+import Dashboard from "../pages/Dashboard";
 import Login from "../pages/Login";
+import SignUp from "../pages/SignUp";
+import {Route} from "./Route"
 
 
-const MainRoutes = () =>(
+const Routes = () =>(
 
-  <Routes>
-    <Route path="/login" element={<Login />}/>
-  </Routes>
+  <Switch>
+    <Route exact path="/" component={Login}/>
+    <Route path="/signup" component={SignUp}/>
+    <Route path="/dashboard" component={Dashboard} isPrivate/>
+  </Switch>
 )
 
-export default MainRoutes
+export default Routes

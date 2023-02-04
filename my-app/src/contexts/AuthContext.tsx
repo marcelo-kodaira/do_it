@@ -26,6 +26,7 @@ interface AuthContextData {
     user: User,
     token: string,
     signIn: (credentials: signInCredentials) => Promise<void>
+    signOut: ()=> void
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -67,10 +68,18 @@ const AuthProvider = ({children}: AuthProviderProps) =>{
         setData({token, user})
     },[])
 
+    const signOut = useCallback(() =>{
+        localStorage.removeItem('@MyAgenda:token')
+        localStorage.removeItem('@MyAgenda:user')
+
+        setData({} as AuthState)
+    },[])
+
 
     return(
         <AuthContext.Provider value={{
             signIn,
+            signOut,
             token: data.token,
             user: data.user
         }}>
