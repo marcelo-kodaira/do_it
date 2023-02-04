@@ -61,11 +61,8 @@ const Login = () =>{
             flexDirection={["column","column","row","row"]} 
             alignItems="center"
             >
-                
                 <LoginInfo/>
                 <LoginForm errors={errors} handleSignIn={handleSubmit(handleSignIn)} loading={loading} register={register}/>
-                
-
             </Flex>
         </Flex>
     )

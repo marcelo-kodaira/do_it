@@ -9,14 +9,14 @@ const SignUpInfo = () =>{
 
     return(
     <Grid 
-    w={["100%","100%","50%","40%"]} paddingLeft="150px">
+    w={["100%","100%","50%","40%"]} paddingLeft={["10px","10px","150px"]}>
         <Image
             src={LogoPrimary} 
             alt="logo My Agenda" 
             boxSize={["120px", "120px", "150px", "150px"]}
             />
 
-        <VStack spacing="14" >
+        <VStack spacing="14" mt={["10px", "0"]}>
 
             <Flex w="100%">
                 <Center borderRadius="5px" bg="white" w="50px" h="50px">
@@ -36,7 +36,7 @@ const SignUpInfo = () =>{
                     <Heading size="lg">Simplicidade</Heading>
                     <Text>Armazene seus projetos em uma <br/> interface altamente usual</Text>
                 </Box>
-                
+
             </Flex>
         </VStack>
     </Grid>
