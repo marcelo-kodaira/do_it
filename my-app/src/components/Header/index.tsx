@@ -7,7 +7,7 @@ import Menu from "./menu"
 const Header = () =>{
 
     const {isOpen, onClose, onToggle} = useDisclosure()
-    const {isOpen: isModalSucessOpen, onOpen: onModalSucessOpen, onClose: onModalSucessClose} = useDisclosure()
+
 
     return(
         <Flex borderBottom="1px" borderBottomColor="#f5f5f5" paddingX="8" paddingY="2">

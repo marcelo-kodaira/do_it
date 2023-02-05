@@ -1,5 +1,5 @@
-import { Box, Button, Center, Heading, HStack, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, VStack } from "@chakra-ui/react";
-import { FaClipboard, FaPenFancy} from "react-icons/fa";
+import {  Button, Center, Heading, HStack, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, VStack } from "@chakra-ui/react";
+import {  FaPenFancy} from "react-icons/fa";
 import { theme } from "../../styles/theme";
 import { Input } from "../Form";
 import { useForm} from "react-hook-form"

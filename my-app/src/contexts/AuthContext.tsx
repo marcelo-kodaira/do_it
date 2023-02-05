@@ -10,7 +10,8 @@ interface AuthProviderProps {
 interface User{
     id: string,
     nome: string,
-    emai:string,
+    email:string,
+    telefone: string
 }
 
 interface signInCredentials{
