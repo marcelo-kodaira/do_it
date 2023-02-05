@@ -6,6 +6,7 @@ import { useTasks } from "../../contexts/TasksContext"
 import TaskList from "./TasksList"
 import FirstTask from "./FirstTask"
 import NotFound from "./NotFound"
+import ModalEditCard from "../../components/Modal/ModalEditCard"
 
 interface Task{
     id: string,
@@ -25,6 +26,8 @@ const Dashboard = () =>{
 
     const {isOpen: isTaskDetailsOpen , onOpen: onTaskDetailsOpen, onClose: onTaskDetailsClose} = useDisclosure()
 
+
+    const {isOpen: isEditCardOpen , onOpen: onEditCardOpen, onClose: onEditCardClose} = useDisclosure()
     
 
     useEffect(() =>{
@@ -32,24 +35,30 @@ const Dashboard = () =>{
         .then(res => setLoading(false))
     },[])
 
-    const handleClick = (task:Task) =>{
+    const handleClickDetails = (task:Task) =>{
         setSelectedTask(task);
         onTaskDetailsOpen()
     }
 
+    const handleClickEdit = (task:Task) =>{
+        setSelectedTask(task);
+        onEditCardOpen()
+    }
+
 
     if(notFound){
-        <NotFound isTaskDetailsOpen={isTaskDetailsOpen} onTaskDetailsClose={onTaskDetailsClose} selectedTask={selectedTask} taskNotFound={taskNotFound}/>
+        return <NotFound isTaskDetailsOpen={isTaskDetailsOpen} onTaskDetailsClose={onTaskDetailsClose} selectedTask={selectedTask} taskNotFound={taskNotFound}/>
     }
 
     return(
         <>
             <ModalTaskDetails isOpen={isTaskDetailsOpen} onClose={onTaskDetailsClose} task={selectedTask}/>
+            <ModalEditCard isOpen={isEditCardOpen} onClose={onEditCardClose} task={selectedTask}/>
             {
             !tasks.length && !loading ?
             <FirstTask/>
             :   
-            <TaskList tasks={tasks} handleClick={handleClick} loading={loading} />
+            <TaskList tasks={tasks} handleClickDetails={handleClickDetails}  handleClickEdit={handleClickEdit} loading={loading} />
             }
         </>
     )
