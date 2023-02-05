@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Grid, Heading, Image, Text, VStack } from "@chakra-ui/react"
+import { Box, Button, Flex, Grid, Heading, Image, Text, useDisclosure, VStack } from "@chakra-ui/react"
 import { useForm, SubmitHandler } from "react-hook-form"
 import * as yup from 'yup'
 import {yupResolver} from "@hookform/resolvers/yup"
@@ -6,6 +6,7 @@ import { useState } from "react"
 import { useAuth } from "../../contexts/AuthContext"
 import LoginInfo from "./LoginInfo"
 import LoginForm from "./LoginForm"
+import ModalError from "../../components/Modal/ModalError"
 
 const signInSchema = yup.object().shape({
     email: yup.string().required('Email obrigatório').email('Email inválido'),
@@ -30,17 +31,26 @@ const Login = () =>{
         resolver: yupResolver(signInSchema)
     })
 
+    const {isOpen: isModalErrorOpen, onOpen: onModalErrorOpen, onClose: onModalErrorClose} = useDisclosure()
+
     const handleSignIn: SubmitHandler<SignInData> = (data:SignInData) => {
         setLoading(true)
         signIn(data)
         .then(() => setLoading(false) )
         .catch(err => {
             setLoading(false)
-            console.log(err)
+            onModalErrorOpen()
         })
     }
 
     return(
+        <>
+        <ModalError 
+        isOpen={isModalErrorOpen} 
+        onClose={onModalErrorClose} 
+        error="Usuário ou senha incorretos."  
+        secondaryText="Tente novamente <b>clicando</b> no botão acima."
+        />
         <Flex  
         padding={["10px 15px", "10px 15px", "0px", "0px"]} 
         align="center"
@@ -65,6 +75,7 @@ const Login = () =>{
                 <LoginForm errors={errors} handleSignIn={handleSubmit(handleSignIn)} loading={loading} register={register}/>
             </Flex>
         </Flex>
+    </>
     )
 }
 

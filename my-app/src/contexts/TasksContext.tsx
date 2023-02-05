@@ -10,7 +10,6 @@ interface TaskRequest{
     nome: string
     telefone: string
     email: string
-    //completed: boolean
 }
 
 interface TaskResponse extends TaskRequest{
@@ -25,12 +24,16 @@ interface TaskPatch{
     telefone?: string
 }
 
+
 interface TaskContextData{
     tasks: TaskResponse[]
+    notFound: boolean
+    taskNotFound: string
     createTask: (data:TaskRequest, token: string) => Promise<void>
     loadTasks: (token: string) => Promise<void>
     deleteTask: (taskId:string ,token: string) => Promise<void>
     updateTask: (data:TaskPatch, taskId: string, token:string) => Promise<void>
+    searchTask: (nome: string, token: string) => Promise<void>
 }
 
 const TaskContext = createContext<TaskContextData>({} as TaskContextData)
@@ -46,6 +49,8 @@ const useTasks = () =>{
 
 const TaskProvider = ({children}:TaskProviderProps) =>{
     const [tasks, setTasks] = useState<TaskResponse[]>([])
+    const [notFound, setNotFound] = useState(false)
+    const [taskNotFound, setTaskNotFound] = useState("")
 
     const loadTasks = useCallback(async (token:string) =>{
     // const [pagination, setPagination] = useState({})
@@ -103,14 +108,35 @@ const TaskProvider = ({children}:TaskProviderProps) =>{
         .catch(err => console.log(err))
     },[])
 
+    const searchTask = useCallback(async(nome: string, token: string) =>{
+        //api.get(`contacts?nome_like=${nome}).then(res => setTasks(res.data))
+        api.get('/contacts',{
+            headers:{
+                Authorization: `Bearer ${token}`}
+            }).then(res => {
+                const filteredItens = res.data.filter((task:TaskResponse) =>{
+                    return task.nome === nome
+                })
+                if(!filteredItens){
+                    setTaskNotFound(nome)
+                    return setNotFound(true)
+                }
+                setTaskNotFound(nome)
+                setTasks(filteredItens)
+            })
+    },[])
+
 
     return(
         <TaskContext.Provider value={{
             tasks,
+            notFound,
+            taskNotFound,
             createTask,
             loadTasks,
             deleteTask,
-            updateTask
+            updateTask,
+            searchTask
             }}>
             {children}
         </TaskContext.Provider>
