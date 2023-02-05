@@ -1,10 +1,8 @@
-import { Box, Center, Flex, Heading, HStack, Progress, Text, useDisclosure, VStack } from "@chakra-ui/react"
+import { Box, Center, Flex, Heading, HStack, Text } from "@chakra-ui/react"
 import { FaEdit, FaPhoneAlt, FaTrash, FaEnvelope } from "react-icons/fa"
-import { date } from "yup"
 import { useAuth } from "../../contexts/AuthContext"
 import { useTasks } from "../../contexts/TasksContext"
 import { theme } from "../../styles/theme"
-import ModalEditCard from "../Modal/ModalEditCard"
 
 
 interface Task{

@@ -21,7 +21,7 @@ const Menu = ({isOpen, onClose}: MenuProps) =>{
 
             <Flex  onClick={signOut} _hover={{cursor: 'pointer'}}>
 
-                <Center w="60px" h="60px" bg="purple.500" mb="6" fontSize="2xl" borderRadius="md">
+                <Center w="60px" h="60px" bg="orange" mb="6" fontSize="2xl" borderRadius="md">
                     <FiSettings color={theme.colors.white}/>
                 </Center>
                 <Box ml="4" paddingTop="2">
