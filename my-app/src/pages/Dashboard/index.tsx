@@ -1,11 +1,30 @@
-import { Button, Text } from "@chakra-ui/react"
+import { Box, Button, Grid, Text } from "@chakra-ui/react"
+import { useEffect, useState } from "react"
+import Card from "../../components/Card"
+import SearchBox from "../../components/Form/SearchBox"
+import Header from "../../components/Header"
 import { useAuth } from "../../contexts/AuthContext"
+import { useTasks } from "../../contexts/TasksContext"
 
 const Dashboard = () =>{
-    const {signOut} = useAuth()
     
+    const [loading,setLoading] = useState(true)
+    const {user, token} = useAuth()
+    const {tasks, loadTasks} = useTasks()
+
+    useEffect(() =>{
+        loadTasks(token)
+        .then(res => setLoading(false))
+    },[])
+
     return(
-    <Button onClick={signOut}>Deslogar</Button>
+        <Box>
+            <Header/>
+            <SearchBox/>
+            <Grid w="100%" templateColumns="repeat(auto-fill, minmax(420px, 1fr))" gap={10} paddingX="8px" mt="8">
+            {tasks.map(task => <Card task={task}/>)}
+            </Grid>
+        </Box>
     )
 }
 

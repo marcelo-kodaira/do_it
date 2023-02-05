@@ -75,7 +75,12 @@ const SignUp = () =>{
             isOpen={isModalSucessOpen} 
             onClose={onModalSucessClose} 
             />
-            <ModalError isOpen={isModalErrorOpen} onClose={onModalErrorClose} error="Email já está em uso."/>
+            <ModalError 
+            isOpen={isModalErrorOpen} 
+            onClose={onModalErrorClose} 
+            error="Email já está em uso."  
+            secondaryText="Tente novamente <b>clicando</b> no botão acima ou aguarde alguns minutos."
+            />
             <Flex  
             padding={["10px 15px", "10px 15px", "0px", "0px"]} 
             align="center"
@@ -89,7 +94,6 @@ const SignUp = () =>{
             ]} 
             color="white"
             >
-
                 <Flex
                 w={["100%","100%","90%","60%"]} 
                 justifyContent="center" 

@@ -1,14 +1,15 @@
-import { Button, Center, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text } from "@chakra-ui/react";
 import { FaExclamation } from "react-icons/fa";
 import { theme } from "../../styles/theme";
 
 interface ModalErrorProps {
     isOpen: boolean;
     onClose: () => void;
-    error: string
+    error: string,
+    secondaryText: string,
 }
 
-const ModalError = ({ isOpen, onClose, error}: ModalErrorProps) =>(
+const ModalError = ({ isOpen, onClose, error, secondaryText}: ModalErrorProps) =>(
 
     <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -28,7 +29,9 @@ const ModalError = ({ isOpen, onClose, error}: ModalErrorProps) =>(
             <Button background="red.500" h="60px" color="white" w="100%" _hover={{bg: "red.600"}} onClick={onClose}>
               Tentar novamente
             </Button>
-            <Text textAlign="center" mt="4">Tente novamente <b>clicando</b> no botão acima ou aguarde alguns minutos...</Text>
+            <Text textAlign="center" mt="4">
+              <Box dangerouslySetInnerHTML={{__html: secondaryText}}/>
+            </Text>
           </ModalFooter>
         </ModalContent>
       </Modal>

@@ -68,6 +68,9 @@ export const InputBase: ForwardRefRenderFunction<HTMLInputElement , InputProps> 
                 variant="outline" 
                 _hover={{ bgColor: 'gray.100'}} 
                 _placeholder={{color: 'gray.300'}}
+                _focus={{
+                    bg: "gray.100"  
+                }}
                  
                 ref={ref} 
                 {...rest}
