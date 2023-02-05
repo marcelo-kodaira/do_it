@@ -1,5 +1,5 @@
-import {  Box, Button, Center, Flex, Heading, HStack, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text } from "@chakra-ui/react";
-import { FaBox, FaCube, FaExclamation, FaTrash } from "react-icons/fa";
+import {  Box, Button, Center, Flex, Heading, HStack, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, VStack } from "@chakra-ui/react";
+import { FaBox, FaCube, FaEnvelope, FaExclamation, FaPhoneAlt, FaTrash } from "react-icons/fa";
 import { useAuth } from "../../contexts/AuthContext";
 import { useTasks } from "../../contexts/TasksContext";
 import { theme } from "../../styles/theme";
@@ -38,12 +38,12 @@ const ModalTaskDetails = ({ isOpen, onClose, task}: ModalTaskDetailsProps) =>{
                 <Center bg="green"  w="30px" h="30px" borderRadius="5px">
                     <FaCube color={theme.colors.white}/>
                 </Center>
-            </Flex>
             <Text fontWeight="bold" ml="2">Visualizar</Text>
+            </Flex>
 
             <HStack spacing="2">
 
-                <Center as="button" onClick={handleDelete} w="30px" h="30px" borderWidth="1px" borderRadius="5px" borderColor="gray.200" bgColor="white">
+                <Center as="button" onClick={handleDelete} w="30px" h="30px" borderWidth="1px" borderRadius="5px" borderColor="gray.200" bgColor="white" mr="10">
                     <FaTrash color={theme.colors.gray['300']} />
                 </Center>
                 
@@ -56,11 +56,20 @@ const ModalTaskDetails = ({ isOpen, onClose, task}: ModalTaskDetailsProps) =>{
             </ModalHeader>
 
           <ModalBody>
-            <Heading as="h1" fontSize="2xl">{task.nome}</Heading>
-            <Text color="gray.500">
-                {task.email}
-                {task.telefone}
-            </Text>
+
+
+            <Heading as="h1" fontSize="2xl" mb="4">{task.nome}</Heading>
+            
+                <HStack mb="4">
+                        <FaPhoneAlt/>
+                        <Text>{task.telefone}</Text>
+                    </HStack>
+
+                    <HStack mb="4">
+                        <FaEnvelope/>
+                        <Text>{task.email}</Text>
+                    </HStack>
+
           </ModalBody>
 
         </ModalContent>

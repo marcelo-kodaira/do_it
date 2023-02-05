@@ -56,10 +56,11 @@ const TaskProvider = ({children}:TaskProviderProps) =>{
     // const [pagination, setPagination] = useState({})
         try{
             const response = await api.get('/clients/contacts',{
+                
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            })
+            },)
             setTasks(response.data.data)
             //fazer paginação setPagination(response.data.info)
         }catch(err){
@@ -87,7 +88,7 @@ const TaskProvider = ({children}:TaskProviderProps) =>{
             setTasks(filteredTasks)
         })
         .catch(err => console.log(err)) 
-    },[])
+    },[tasks])
 
     const updateTask = useCallback(async(data: TaskPatch, taskId: string, token: string) =>{
        await api.patch(`contacts/${taskId}`,data,{
@@ -106,25 +107,33 @@ const TaskProvider = ({children}:TaskProviderProps) =>{
             }
         })
         .catch(err => console.log(err))
-    },[])
+    },[tasks])
 
     const searchTask = useCallback(async(nome: string, token: string) =>{
-        //api.get(`contacts?nome_like=${nome}).then(res => setTasks(res.data))
-        api.get('/contacts',{
+        api.get('/clients/contacts',{
             headers:{
                 Authorization: `Bearer ${token}`}
             }).then(res => {
-                const filteredItens = res.data.filter((task:TaskResponse) =>{
-                    return task.nome === nome
-                })
-                if(!filteredItens){
+                const itens = res.data.data
+                const filteredItens = itens.filter((task:TaskResponse) =>{
+                    const regex = new RegExp(nome, 'i');
+                    return regex.test(task.nome);
+                 })
+
+                if(nome === ""){
+                    setTasks(itens)
+                    return setNotFound(false)
+                }
+
+                if(filteredItens.length === 0){
                     setTaskNotFound(nome)
                     return setNotFound(true)
                 }
-                setTaskNotFound(nome)
-                setTasks(filteredItens)
+                    setNotFound(false)
+                    setTasks(filteredItens)
+                
             })
-    },[])
+    },[tasks])
 
 
     return(

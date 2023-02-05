@@ -16,10 +16,11 @@ interface Task{
 interface TaskListProps{
     loading: boolean
     tasks: Task[]
-    handleClick: (task: Task) => void
+    handleClickDetails: (task: Task) => void
+    handleClickEdit: (task: Task) => void
 }
 
-const TaskList = ({handleClick,loading,tasks}:TaskListProps) =>(
+const TaskList = ({handleClickDetails,loading,tasks, handleClickEdit}:TaskListProps) =>(
     <Box>
                 <Header/>
                 <SearchBox/>
@@ -28,7 +29,7 @@ const TaskList = ({handleClick,loading,tasks}:TaskListProps) =>(
                     loading? (
                     <CardSkeleton repeatCount={9} />
                     ):
-                    tasks.map(task => <Card onClick={handleClick} key={task.id} task={task}/>)
+                    tasks.map(task => <Card onClickDetails={handleClickDetails} onClickEdit={handleClickEdit} key={task.id} task={task}/>)
                 }
                 </Grid>
     </Box>

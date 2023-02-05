@@ -1,6 +1,6 @@
 import { Box, Center, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Flex, Heading, Text } from "@chakra-ui/react"
 import { useAuth } from "../../contexts/AuthContext"
-import {FiLogOut} from 'react-icons/fi'
+import {FiLogOut, FiSettings} from 'react-icons/fi'
 import { theme } from "../../styles/theme"
 
 interface MenuProps{
@@ -18,19 +18,38 @@ const Menu = ({isOpen, onClose}: MenuProps) =>{
             <DrawerHeader borderBottomWidth='1px' borderColor="gray.50" color="gray.400" >Olá, {user.nome}!</DrawerHeader>
             <DrawerBody>
 
-                <Flex align="center" onClick={signOut} _hover={{cursor: 'pointer'}}>
-                    <Center w="60px" h="60px" bg="red.600" fontSize="2xl" borderRadius="md">
+
+            <Flex  onClick={signOut} _hover={{cursor: 'pointer'}}>
+
+                <Center w="60px" h="60px" bg="purple.500" mb="6" fontSize="2xl" borderRadius="md">
+                    <FiSettings color={theme.colors.white}/>
+                </Center>
+                <Box ml="4" paddingTop="2">
+                <Heading as="h2" fontSize="lg">
+                    Alterar dados
+                </Heading>
+                <Text color="gray.400" fontSize="small">
+                    Alterar dados da minha conta
+                </Text>
+                </Box>
+
+            </Flex> 
+
+                <Flex  onClick={signOut} _hover={{cursor: 'pointer'}}>
+                <Center w="60px" h="60px" bg="red.600" fontSize="2xl" borderRadius="md">
                         <FiLogOut color={theme.colors.white}/>
                     </Center>
-                    <Box ml="4">
+                    <Box ml="4" paddingTop="2">
                         <Heading as="h2" fontSize="lg">
                             Sair da minha conta
                         </Heading>
-                        <Text color="gray.200" fontSize="small">
+                        <Text color="gray.400" fontSize="small">
                             Sair da minha conta agora
                         </Text>
                     </Box>
                 </Flex> 
+
+                
 
                 
             </DrawerBody>

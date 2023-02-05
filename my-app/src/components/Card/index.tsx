@@ -1,8 +1,10 @@
-import { Box, Center, Flex, Heading, HStack, Progress, Text } from "@chakra-ui/react"
-import { FaCheck, FaTrash } from "react-icons/fa"
+import { Box, Center, Flex, Heading, HStack, Progress, Text, useDisclosure, VStack } from "@chakra-ui/react"
+import { FaEdit, FaPhoneAlt, FaTrash, FaEnvelope } from "react-icons/fa"
+import { date } from "yup"
 import { useAuth } from "../../contexts/AuthContext"
 import { useTasks } from "../../contexts/TasksContext"
 import { theme } from "../../styles/theme"
+import ModalEditCard from "../Modal/ModalEditCard"
 
 
 interface Task{
@@ -16,17 +18,22 @@ interface Task{
 
 interface CardProps{
     task: Task
-    onClick: (task: Task)=> void;
+    onClickDetails: (task: Task)=> void;
+    onClickEdit: (task: Task)=> void;
 }
 
 
-const Card = ({task, onClick}:CardProps) =>{
+const Card = ({task, onClickDetails, onClickEdit}:CardProps) =>{
     
     const {token} = useAuth()
     const{deleteTask,updateTask} = useTasks()
-    //fazer um modal abrir quando clicar em update Task, fazendo com que o usuario possa escolher as informações que ele deseja mudar
+
+
+    const stringCreatedAt = task.updatedAt.toString().slice(0, 10).split('-')
+    const data = `${stringCreatedAt[2]} -  ${stringCreatedAt[1]} - ${stringCreatedAt[0]}` 
     
     return(
+
         <Box 
             cursor="pointer" 
             _hover={{transform: 'translateY(-7px)',borderColor: "gray.100"}}
@@ -45,17 +52,25 @@ const Card = ({task, onClick}:CardProps) =>{
                         <FaTrash color={theme.colors.gray['300']} />
                     </Center>
 
-                    <Center as="button"  w="30px" h="30px" borderWidth="1px" borderRadius="5px" borderColor="gray.200" bgColor="white">
-                        <FaCheck color={theme.colors.gray['300']} />
+                    <Center as="button" onClick={() => onClickEdit(task)} w="30px" h="30px" borderWidth="1px" borderRadius="5px" borderColor="gray.200" bgColor="white">
+                        <FaEdit color={theme.colors.gray['300']} />
                     </Center>
 
                 </HStack>
             </Flex>
 
-            <Box onClick={() => onClick(task)} w="100%" mt="4">
-                <Text>{task.telefone} - {task.email}</Text>
-                <Progress colorScheme="purple" mt="2.5" value={10}/>
-                <Text color="gray.200" mt="3">Criado em</Text>
+            <Box onClick={() => onClickDetails(task)} w="100%" mt="4">
+                    <HStack mb="4">
+                        <FaPhoneAlt/>
+                        <Text>{task.telefone}</Text>
+                    </HStack>
+
+                    <HStack mb="4">
+                        <FaEnvelope/>
+                        <Text>{task.email}</Text>
+                    </HStack>
+                {/* <Progress colorScheme="purple" mt="2.5" value={10}/> */}
+                <Text color="gray.500" mt="3">Criado em: {data}</Text>
             </Box>
         </Box>
     )
