@@ -75,7 +75,7 @@ const ModalEditUser = ({ isOpen, onClose}: ModalEditUserProps) =>{
               </Center>
               <Heading fontSize="2xl" ml="2">Editar Informações</Heading>
             </HStack>
-            <Text mt="4">Preencha  os campos que deseja alterar e insira sua senha para confirmar.</Text>
+            <Text mt="4">Preencha  os campos que deseja alterar e insira sua senha atual, ou crie uma nova para confirmar.</Text>
             </ModalHeader>
             <ModalCloseButton bg="purple.500" color="white" _hover={{bg: "red.700"}}/>
 
