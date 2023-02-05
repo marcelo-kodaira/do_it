@@ -21,7 +21,7 @@ interface SignInData {
 const Login = () =>{
 
     const [loading, setLoading] = useState(false)
-    const {signIn,token,user} = useAuth()
+    const {signIn} = useAuth()
 
     const {
         register,

@@ -47,7 +47,7 @@ const LoginForm = ({handleSignIn, errors, register, loading}: LoginFormProps) =>
 
                     <VStack mt="4" spacing="5">
                         <Button isLoading={loading} bg="purple.800" w="100%" h="60px" borderRadius="8px" _hover={{background: 'purple.900'}} color="white" type="submit">Entrar</Button>
-                        <Text color="gray.400">Ainda ñao possui uma conta?</Text>
+                        <Text color="gray.400">Ainda não possui uma conta?</Text>
                         <Button onClick={() => history.push('/signup')}  bg="gray.100" w="100%" h="60px" borderRadius="8px" _hover={{background: 'gray.200'}} color="gray.300" >Cadastrar</Button>
                     </VStack>
                 </Grid>
