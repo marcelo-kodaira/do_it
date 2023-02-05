@@ -14,7 +14,7 @@ import { useHistory } from "react-router-dom"
 const signUpSchema = yup.object().shape({
     email: yup.string().required('Email obrigatório').email('Email inválido'),
     senha: yup.string().required("Senha obrigatória"),
-    confirm_senha: yup.string().required("Confirmação de senha obrigatória").oneOf([yup.ref('senha')], "Senhas diferentes"),
+    confirm_senha: yup.string().required("Confirmação de senha obrigatória").oneOf([yup.ref('senha')], "As senhas são diferentes."),
     nome: yup.string().required('Nome obrigatório'),
     telefone: yup.string().required('Telefone obrigatório')
 })

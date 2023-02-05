@@ -14,7 +14,7 @@ export const LoginInfo = () =>(
         </Heading>
         <Text maxW="350px">
             Flexível e atrativo de gerenciar 
-            <b>seus contatos em uma única plataforma</b>
+            <b> seus contatos em uma única plataforma</b>
         </Text>
     </Grid>
 )
